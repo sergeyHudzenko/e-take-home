@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/51a0baa6-a2ff-4017-9460-013d3bbfbbcc
+
 # Elective Waiting List
 
 A front-end waiting-list system for onboarding course creators into fixed-capacity cohorts. Business rules live in a domain class; the React UI is a thin layer for viewing and interacting with the list.
