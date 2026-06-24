@@ -20,6 +20,17 @@ function assertNonNegativeInteger(value: number, label: string): void {
   }
 }
 
+function formatCohorts(cohorts: readonly number[]): string {
+  return JSON.stringify(cohorts);
+}
+
+function logState(action: string, cohorts: readonly number[]): void {
+  const total = cohorts.reduce((sum, count) => sum + count, 0);
+  console.log(
+    `[WaitingList] ${action} → ${formatCohorts(cohorts)} (total: ${total})`,
+  );
+}
+
 // Waiting list for onboarding course creators into fixed-capacity cohorts
 export class WaitingList {
   private readonly capacity: number;
@@ -28,6 +39,7 @@ export class WaitingList {
   constructor(capacity: number = DEFAULT_CAPACITY) {
     assertPositiveInteger(capacity, "capacity");
     this.capacity = capacity;
+    logState(`created (capacity: ${capacity})`, this.cohorts);
   }
 
   // Add creators to the waiting list
@@ -53,6 +65,8 @@ export class WaitingList {
       this.cohorts.unshift(toAdd);
       remaining -= toAdd;
     }
+
+    logState(`add(${count})`, this.cohorts);
   }
 
   // Remove creators FIFO from the oldest cohorts
@@ -81,6 +95,7 @@ export class WaitingList {
       }
     }
 
+    logState(`take(${count}), removed ${taken}`, this.cohorts);
     return taken;
   }
 

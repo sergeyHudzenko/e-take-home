@@ -78,6 +78,7 @@ export function WaitingListView() {
     setTakeInput("");
     setLastTaken(null);
     setError(null);
+    console.log("[WaitingList] cleared → [] (total: 0)");
     refresh();
   };
 
